@@ -33,9 +33,11 @@ import org.springframework.stereotype.Service;
 import com.jungleegames.auxiliary.event.GameScheduledToStartEvent;
 import com.jungleegames.auxiliary.event.GameStartEvent;
 import com.jungleegames.auxiliary.event.JoinTableEvent;
+import com.jungleegames.auxiliary.event.PlayerDisconnectEvent;
 import com.jungleegames.auxiliary.event.handler.GameScheduledToStartEventHandler;
 import com.jungleegames.auxiliary.event.handler.GameStartedEventHandler;
 import com.jungleegames.auxiliary.event.handler.JoinTableEventHandler;
+import com.jungleegames.auxiliary.event.handler.PlayerDisconnectedEventHandler;
 
 /**
  * Handles the routing of {@link Event} messages to associated handlers.
@@ -54,6 +56,9 @@ public class EventDispatcher {
   
   @Autowired
   private GameStartedEventHandler gameStartedEventHandler;
+  
+  @Autowired
+  private PlayerDisconnectedEventHandler playerDisconnectEventHandler;
 
   public EventDispatcher() {
   }
@@ -63,6 +68,7 @@ public class EventDispatcher {
 	  this.registerHandler(JoinTableEvent.class, joinTableEventHandler);
 	    this.registerHandler(GameScheduledToStartEvent.class, gameScheduledToStartEventHandler);
 	    this.registerHandler(GameStartEvent.class, gameStartedEventHandler);
+	    this.registerHandler(PlayerDisconnectEvent.class, playerDisconnectEventHandler);
   }
   /**
    * Links an {@link Event} to a specific {@link Handler}.

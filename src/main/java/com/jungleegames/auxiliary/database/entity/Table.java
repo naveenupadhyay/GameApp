@@ -12,58 +12,75 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Component;
 
-public class Table implements Serializable{
+public class Table implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6949708260156929405L;
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id ;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
 	private String code;
 	private Set<Player> allocatedPlayers = new HashSet<>();
 	private String status;
-	
+
 	public Table() {
-		
+
 	}
+
 	public Table(String code) {
 		this.code = code;
 	}
+
 	@Id
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getCode() {
 		return code;
 	}
+
 	public void setCode(String code) {
 		this.code = code;
 	}
+
 	public Set<Player> getAllocatedPlayers() {
 		return allocatedPlayers;
 	}
+
 	public void setAllocatedPlayers(Set<Player> allocatedPlayers) {
 		this.allocatedPlayers = allocatedPlayers;
 	}
+
 	public String getStatus() {
 		return status;
 	}
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
 	@Override
 	public String toString() {
 		return "Table [id=" + id + ", code=" + code + ", allocatedPlayers=" + allocatedPlayers + ", status=" + status
 				+ "]";
 	}
 
-	
-	
-//	sendBroadcast() ;
-//	sendMsg(Player p);
+	public void removePlayer(String player) {
+		for (Player p : this.getAllocatedPlayers()) {
+			if (p.getPlayerID().equalsIgnoreCase(player)) {
+				this.allocatedPlayers.remove(p);
+				break;
+			}
+		}
+	}
+
+	// sendBroadcast() ;
+	// sendMsg(Player p);
 }

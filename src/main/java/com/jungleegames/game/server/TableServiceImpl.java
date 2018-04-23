@@ -16,12 +16,13 @@ import com.jungleegames.Constants;
 import com.jungleegames.auxiliary.database.entity.Player;
 import com.jungleegames.auxiliary.database.entity.Table;
 import com.jungleegames.auxiliary.event.GameScheduledToStartEvent;
+import com.jungleegames.auxiliary.event.PlayerDisconnectEvent;
 import com.jungleegames.auxiliary.event.framework.EventDispatcher;
 import com.jungleegames.auxiliary.services.ConcurrentTableManagerService;
 
 @Service("TableService ")
 public class TableServiceImpl implements TableService {
-	Map<Player, Table> playerTableMapping = new HashMap<Player, Table>();
+	Map<String, Table> playerTableMapping = new HashMap<String, Table>();
 	Set<Table> tables = new HashSet<Table>();
 
 	@Autowired
@@ -72,7 +73,7 @@ public class TableServiceImpl implements TableService {
 				tables.add(t);
 			}
 		}
-		playerTableMapping.put(p, t);
+		playerTableMapping.put(player, t);
 		this.messagingTemplate.convertAndSendToUser(player, "/queue/user-updates", t.toString());
 		checkForEvents(t);
 	}
@@ -119,7 +120,14 @@ public class TableServiceImpl implements TableService {
 
 	@Override
 	public void removePlayer(String player) {
+	  Table table = 	playerTableMapping.get(player);
+	  table.removePlayer(player);
+	  generateDisconnectEvent(table,player);
+	}
 
+	private void generateDisconnectEvent(Table table, String player) {
+		PlayerDisconnectEvent event = new PlayerDisconnectEvent(player, table);
+		dispatcher.dispatch(event);
 	}
 
 }

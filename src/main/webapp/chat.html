@@ -1,11 +1,12 @@
 <html>
 	<head>
 	    <title>Chat WebSocket</title>
-	     <div class="collapse navbar-collapse" id="navbar-collapse-01">
-            <a class="btn btn-default navbar-btn navbar-right logout" href="logout.html" target="_self" ng-click="logout()">
-                <span class="glyphicon glyphicon glyphicon-off"></span>
-            </a>
-        </div>
+	   <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+    <link href="webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="webjars/flat-ui/bcaf2de95e/css/flat-ui.css" rel="stylesheet">
+    <link href="static/css/portfolio.css" rel="stylesheet">
+    
 	    <script src="./js/sockjs-0.3.4.js"></script>
 	    <script src="./js/stomp.js"></script>
 	    
@@ -34,7 +35,7 @@
 				  stompClient.subscribe("/user/queue/user-updates", function(msg) {
 				  
 				   if(msg.body){
-				    alert("got message with body " + msg.body);
+				    alert( msg.body);
 				    console.log("got message with body " + msg.body);
 				    }else{
 				     alert("got empty message");
@@ -79,7 +80,19 @@
 	<body onload="disconnect()">
 
 		<div>
-		
+		  <nav class="navbar navbar-default" role="navigation">
+		        <div class="navbar-header">
+		            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+		                <span class="sr-only">Toggle navigation</span>
+		            </button>
+		            <a class="navbar-brand" href="#">Game App acitons</a>
+		        </div>
+		        <div class="collapse navbar-collapse" id="navbar-collapse-01">
+		            <a class="btn btn-default navbar-btn navbar-right logout" href="logout.html" target="_self" ng-click="logout()">
+		                <span class="glyphicon glyphicon glyphicon-off"></span>
+		            </a>
+		        </div>
+   		 </nav>
 		
 			<div>
 				<input type="text" id="from" placeholder="Choose a nickname"/>
@@ -92,7 +105,6 @@
 		    <br />
 		    <div id="conversationDiv">
 				 <select id="msgType">
-				  <option value="Authentication">Volvo</option>
 				  <option value="JOIN_TABLE">JOIN_TABLE</option>
 				  <option value="DISCONNECT">DISCONNECT</option>
 				</select> 
@@ -101,6 +113,6 @@
 		        <p id="response"></p>
 		    </div>
 		</div>
-
+		 
 	</body>
 </html>

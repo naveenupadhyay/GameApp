@@ -20,9 +20,11 @@ public class GameStartedEventHandler implements Handler<GameStartEvent> {
 	public void onEvent(GameStartEvent event) {
 		Table table = event.getTable();
 		table.setStatus(Constants.IN_GAME);
-		for (Player player : table.getAllocatedPlayers())
+		for (Player player : table.getAllocatedPlayers()) {
+			player.setStatus(Constants.IN_GAME);
 			this.messagingTemplate.convertAndSendToUser(player.getPlayerID(), "/queue/user-updates",
 				"Table" + table.getCode() + " Status: = " + table.getStatus());
+		}
 
 	}
 
