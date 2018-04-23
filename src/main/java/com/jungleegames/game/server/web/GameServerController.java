@@ -12,15 +12,19 @@ import com.jungleegames.Constants;
 import com.jungleegames.Message;
 import com.jungleegames.game.server.GameService;
 import com.jungleegames.game.server.TableService;
-
+/**
+ * This class essentially shows the websocket capability of this application
+ * @author naveen.upadhyay
+ *
+ */
 @Controller
 public class GameServerController {
 	
 	@Autowired
-	TableService tableService;
+	private TableService tableService;
 	
 	@Autowired 
-	GameService gameService;
+	private GameService gameService;
 
 	 private static final Logger LOG = LoggerFactory.getLogger(GameServerController.class);
 

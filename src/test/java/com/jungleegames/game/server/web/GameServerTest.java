@@ -1,13 +1,10 @@
 package com.jungleegames.game.server.web;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
+import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurationSupport;
+
 
 /**
  * This test class logs in a few users. Ask them to join tables , checks if game starts and then disconnects them.
@@ -15,18 +12,18 @@ import org.springframework.test.web.servlet.MockMvc;
  *
  */
 
-@RunWith(SpringRunner.class)
-@WebMvcTest(GameServerController.class)
 @WebAppConfiguration
 public class GameServerTest {
-	
-	@Autowired
-	private MockMvc mockMvc;
-	
-	
-	@Test
-	@WithMockUser(username = "user1", password = "pwd", roles = "USER")
-	public void testGameFlow() {
+	/*
+	 * test here for connecting to this application using Stomp
+	 */
+	@Configuration
+	static class WebSocketHandlerDecoratorConfig extends WebSocketMessageBrokerConfigurationSupport {
+
+		@Override
+		protected void registerStompEndpoints(StompEndpointRegistry registry) {
+			registry.addEndpoint("/test");
+		}
 		
 	}
 }
