@@ -5,8 +5,8 @@
 
 The code is broken down into Game Server logic and auxiliary classes.
 Auxiliary classes have :
- db support using Spring Data JPA
- Event driven approach using event dispatcher mechanism. This decouples the entity sending the event(TableService) to the entity handling the event(Event Handler) - all routed by the dispatcher..
+ - db support using Spring Data JPA
+ - Event driven approach using event dispatcher mechanism. This decouples the entity sending the event(TableService) to the entity handling the event(Event Handler) - all routed by the dispatcher..
 
 ## Game Server :
  It alows a player to :
@@ -26,8 +26,5 @@ Auxiliary classes have :
 - mvn spring-boot:run
 - http://localhost:8081/login.html
  
-   
-- Organization Id: com.jungleegames
-- Project Name: GameApp
-- Project Version: 1.0-SNAPSHOT
+
 
